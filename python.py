@@ -63,13 +63,41 @@ class Clovek:
         self.set_zeme(input("Zadejte zemi: "))
         self.set_adresa_bydliste(input("Zadejte adresu bydliště: "))
 
+    # Přetížení metody __str__ pro čitelný výstup
+    def __str__(self):
+        return f"{self.get_cele_jmeno()}, narozen(a) {self.get_datum_narozeni()}, kontakt: {self.get_kontaktni_cislo()}, město: {self.get_mesto()}, země: {self.get_zeme()}, adresa: {self.get_adresa_bydliste()}"
+
+    # Přetížení metody __repr__ pro detailní výstup (užitečné pro ladění)
+    def __repr__(self):
+        return (f"Clovek(cele_jmeno={self.get_cele_jmeno()!r}, datum_narozeni={self.get_datum_narozeni()!r}, "
+                f"kontaktni_cislo={self.get_kontaktni_cislo()!r}, mesto={self.get_mesto()!r}, zeme={self.get_zeme()!r}, "
+                f"adresa_bydliste={self.get_adresa_bydliste()!r})")
+
+    # Přetížení metody __eq__ pro porovnávání dvou objektů
+    def __eq__(self, other):
+        if isinstance(other, Clovek):
+            return (self.get_cele_jmeno() == other.get_cele_jmeno() and
+                    self.get_datum_narozeni() == other.get_datum_narozeni() and
+                    self.get_kontaktni_cislo() == other.get_kontaktni_cislo() and
+                    self.get_mesto() == other.get_mesto() and
+                    self.get_zeme() == other.get_zeme() and
+                    self.get_adresa_bydliste() == other.get_adresa_bydliste())
+        return False
+
 # Ukázka použití třídy
-clovek = Clovek("Jan Novák", "1.1.1990", "123456789", "Praha", "Česká republika", "Náměstí 1")
-clovek.print_info()
+clovek1 = Clovek("Jan Novák", "1.1.1990", "123456789", "Praha", "Česká republika", "Náměstí 1")
+clovek2 = Clovek("Petr Svoboda", "2.2.1980", "987654321", "Brno", "Česká republika", "Ulice 2")
+
+print(clovek1)  # Výstup metody __str__
+print(repr(clovek2))  # Výstup metody __repr__
+
+# Porovnání dvou objektů
+print(clovek1 == clovek2)  # Výstup: False
 
 # Umožnění uživateli zadat nové informace
-clovek.input_info()
-clovek.print_info()
+clovek1.input_info()
+print(clovek1)
+
 
 
 class Mesto:
